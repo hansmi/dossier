@@ -1,0 +1,91 @@
+pages {
+  number: 1
+  size {
+    width {
+      pt: 176
+    }
+    height {
+      pt: 249
+    }
+  }
+  nodes {
+    name: "tl"
+    valid: true
+    bounds {
+      top {
+        pt: 26
+      }
+      right {
+        pt: 40
+      }
+      bottom {
+        pt: 38
+      }
+      left {
+        pt: 28
+      }
+    }
+    search_areas {
+      top {
+        pt: 3
+      }
+      right {
+        pt: 88
+      }
+      bottom {
+        pt: 60
+      }
+      left {
+        pt: 3
+      }
+    }
+    text {
+      value: "TL"
+    }
+    text_match_groups {
+      end: 2
+      text: "TL"
+    }
+    tags: "top left"
+  }
+  nodes {
+    name: "tr"
+    valid: true
+    bounds {
+      top {
+        pt: 26
+      }
+      right {
+        pt: 148
+      }
+      bottom {
+        pt: 38
+      }
+      left {
+        pt: 135
+      }
+    }
+    search_areas {
+      top {
+        pt: 26
+      }
+      right {
+        pt: 153
+      }
+      bottom {
+        pt: 140
+      }
+      left {
+        pt: 68
+      }
+    }
+    text {
+      value: "TR"
+    }
+    text_match_groups {
+      end: 2
+      text: "TR"
+    }
+    tags: "top right"
+  }
+}

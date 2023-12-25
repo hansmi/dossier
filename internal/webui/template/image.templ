@@ -1,0 +1,24 @@
+package template
+
+import "strconv"
+
+templ Image(data ImageData) {
+	<img
+		src={ string(templ.URL(data.Src)) }
+		loading="lazy"
+		if data.Width > 0 {
+			width={ strconv.Itoa(data.Width) }
+		}
+		if data.Height > 0 {
+			height={ strconv.Itoa(data.Height) }
+		}
+		if len(data.ClassNames) > 0 {
+			class={ data.ClassNames }
+		}
+		if data.Alt != "" {
+			alt={ data.Alt }
+		}
+	/>
+}
+
+// vim: set ts=4 sw=0 sts=0 noet :

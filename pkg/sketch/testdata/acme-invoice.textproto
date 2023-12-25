@@ -1,0 +1,56 @@
+nodes: {
+  name: "sender"
+  search_areas {
+    top_left {
+      abs: { left: { mm: 1 } top: { mm: 1 } }
+    }
+    width: { cm: 1 }
+    height: { cm: 1 }
+  }
+  search_areas {
+    top_left {
+      abs: { left: { mm: 20 } top: { cm: 4 } }
+    }
+    width: { cm: 13 }
+    height: { cm: 1 }
+  }
+  line_text: {
+    regex: "(?i)^\\s*Acme\\s+Lawn\\b"
+  }
+}
+nodes: {
+  name: "total_label"
+  search_areas {
+    top_left {
+      abs: { left: { cm: 10 } top: { cm: 8 } }
+    }
+    width: { cm: 12 }
+    height: { cm: 20 }
+  }
+  line_text: {
+    regex: "(?i)^\\s*Gross\\s+total\\b"
+    bounds_from_match: true
+  }
+}
+nodes: {
+  name: "total_amount"
+  search_areas {
+    top_left {
+      rel: {
+        node: "total_label"
+        feature: TOP_LEFT
+        offset: {
+          width: { cm: -.1 }
+          height: { cm: -.5 }
+        }
+      }
+    }
+    width: { cm: 8 }
+    height: { cm: 2 }
+  }
+  line_text: {
+    regex: "(?i)\u20AC?\\s*(?P<amount>[,.\\d]+)\\s*$"
+  }
+}
+
+# vim: set sw=2 sts=2 et :

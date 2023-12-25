@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package dossier.sketch.report;
+option go_package = "github.com/hansmi/dossier/proto/reportpb";
+
+import "geometry.proto";
+import "google/protobuf/wrappers.proto";
+
+message TextMatchGroup {
+  string name = 1;
+
+  // Byte offsets for start and end of group.
+  int32 start = 2;
+  int32 end = 3;
+
+  string text = 4;
+}
+
+message Node {
+  // Sketch node name
+  string name = 1;
+
+  // Whether a match was found.
+  bool valid = 2;
+
+  // Node bounds.
+  geometry.Rect bounds = 3;
+
+  // Searched rectangles until the node was found to be valid or invalid.
+  repeated geometry.Rect search_areas = 4;
+
+  // Complete node text.
+  .google.protobuf.StringValue text = 10;
+
+  // Regular expression match groups.
+  repeated TextMatchGroup text_match_groups = 11;
+
+  // Sketch node tags.
+  repeated string tags = 15;
+}
+
+message Page {
+  // 1-based page number.
+  int32 number = 1;
+
+  geometry.Size size = 2;
+
+  repeated Node nodes = 10;
+}
+
+message Document {
+  repeated Page pages = 1;
+
+  // Sketch tags.
+  repeated string tags = 15;
+}
+
+// vim: set sw=2 sts=2 et :

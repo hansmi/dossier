@@ -1,0 +1,273 @@
+package template
+
+import (
+	"fmt"
+	"strconv"
+
+	"github.com/hansmi/dossier/pkg/sketch"
+)
+
+templ PageContent(data PageData) {
+	<div class="p-3">
+		<div
+			id="dossier_viewer"
+			class={ "dossier_viewer", "d-block", "position-relative" }
+			data-bs-theme="light"
+			data-width-pt={ fmt.Sprintf("%.1f", data.size().Width.Pt()) }
+			data-height-pt={ fmt.Sprintf("%.1f", data.size().Height.Pt()) }
+		>
+			@PageImage(data.imageData())
+			for _, i := range data.overlays() {
+				@pageViewerOverlay(i)
+			}
+		</div>
+		@pageNodeDialogTemplate()
+	</div>
+}
+
+templ pageNodeDialogTemplate() {
+	<div class="modal fade" id="dossier_page_node_dialog_template" tabindex="-1" aria-labelledby="dossier_page_node_dialog_title" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="dossier_page_node_dialog_title">Node information</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-3">
+						<div class="row">
+							<label for="dossier_page_node_dialog_kind" class="col-2 col-form-label">Kind</label>
+							<div class="col">
+								<input type="text" class="form-control-plaintext" id="dossier_page_node_dialog_kind" autocomplete="off" readonly/>
+							</div>
+						</div>
+						<div class="row">
+							<label for="dossier_page_node_dialog_bounds" class="col-2 col-form-label">Bounds</label>
+							<div class="col">
+								<span class="form-control-plaintext">
+									<dossier-geometry-rect id="dossier_page_node_dialog_bounds"></dossier-geometry-rect>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div>
+						<ul class="nav nav-tabs" role="tablist">
+							<li class="nav-item" role="presentation">
+								<button
+									class="nav-link active"
+									id="dossier_page_node_dialog_text_tab"
+									data-bs-toggle="tab"
+									data-bs-target="#dossier_page_node_dialog_text_pane"
+									type="button"
+									role="tab"
+									aria-controls="dossier_page_node_dialog_text_pane"
+									aria-selected="true"
+								>Text</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button
+									class="nav-link"
+									id="dossier_page_node_dialog_text_details_tab"
+									data-bs-toggle="tab"
+									data-bs-target="#dossier_page_node_dialog_text_details_pane"
+									type="button"
+									role="tab"
+									aria-controls="dossier_page_node_dialog_text_details_pane"
+									aria-selected="false"
+								>Details</button>
+							</li>
+						</ul>
+						<div class="tab-content">
+							<div
+								class="tab-pane show active"
+								id="dossier_page_node_dialog_text_pane"
+								role="tabpanel"
+								aria-labelledby="dossier_page_node_dialog_text_tab"
+								tabindex="0"
+							>
+								<textarea class="form-control" id="dossier_page_node_dialog_text" autocomplete="off" readonly></textarea>
+							</div>
+							<div
+								class="tab-pane"
+								id="dossier_page_node_dialog_text_details_pane"
+								role="tabpanel"
+								aria-labelledby="dossier_page_node_dialog_text_details_tab"
+								tabindex="0"
+							>
+								<textarea class="form-control" id="dossier_page_node_dialog_text_details" autocomplete="off" readonly></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+templ PageSidebar(data PageData) {
+	<div
+		class="accordion accordion-flush d-flex flex-column h-100"
+		style="
+			--bs-accordion-border-width: 0;
+			--bs-accordion-bg: unset;
+			min-height: 0;
+		"
+	>
+		<div class="accordion-item d-flex flex-column flex-grow-1" style="min-height: 0;">
+			<h3 class="accordion-header">
+				<button
+					class="accordion-button"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#nodes_body"
+					aria-expanded="true"
+					aria-controls="nodes_body"
+				>
+					Nodes
+				</button>
+			</h3>
+			<div class="accordion-collapse collapse show overflow-y-auto flex-shrink-1" id="nodes_body">
+				<div class="accordion-body pt-0">
+					for _, node := range data.SketchNodes {
+						@pageSidebarSketchNode(node)
+					}
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h3 class="accordion-header">
+				<button
+					class="accordion-button"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#config_body"
+					aria-expanded="true"
+					aria-controls="config_body"
+				>
+					Viewer configuration
+				</button>
+			</h3>
+			<div class="accordion-collapse collapse show" id="config_body">
+				<div class="accordion-body">
+					@pageSidebarConfig()
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+templ pageSidebarSketchNode(data SketchNodeData) {
+	<div class="dossier_sketch_node_info" id={ data.ID }>
+		<h3
+			class="h5 bg-secondary-subtle py-2 bg-gradient"
+			style="
+			margin-left: calc(-1 * var(--bs-accordion-btn-padding-x));
+			padding-left: var(--bs-accordion-btn-padding-x);
+			margin-right: calc(-1 * var(--bs-accordion-btn-padding-x));
+			padding-right: var(--bs-accordion-btn-padding-x);
+			"
+		>
+			<span class="me-1">
+				if data.Valid() {
+					&#x2705;
+				} else {
+					&#x2718;
+				}
+			</span>
+			<span class="user-select-all text-break">{ data.Name() }</span>
+		</h3>
+		<dl class="row row-cols-1 my-0">
+			<dt class="col">Searched</dt>
+			<dd class="col">
+				<ul class="my-0 list-unstyled">
+					for _, area := range data.SearchAreas() {
+						<li>
+							@geometryRect(area)
+						</li>
+					}
+				</ul>
+			</dd>
+			if data.Valid() {
+				<dt class="col">Bounds</dt>
+				<dd class="col">
+					@geometryRect(data.Bounds())
+				</dd>
+				<dt class="col">Text</dt>
+				<dd class="col text-break">{ data.Text() }</dd>
+				if tm := data.TextMatch(); tm != nil {
+					<dt class="col">Pattern</dt>
+					<dd class="col"><code class="text-break">{ tm.Pattern() }</code></dd>
+					<dt class="col">Groups</dt>
+					<dd class="col">
+						for idx, g := range tm.Groups() {
+							@pageSidebarTextMatchCard(idx, g)
+						}
+					</dd>
+				}
+			}
+		</dl>
+	</div>
+}
+
+templ pageSidebarTextMatchCard(idx int, g sketch.TextMatchGroup) {
+	<div class="card my-1">
+		<div class="card-header d-flex justify-content-between align-items-start">
+			<div class="ms-2 me-auto">
+				<span class="me-1" data-bs-toggle="tooltip" title="Number">{ strconv.Itoa(idx) }</span>
+				if idx > 0 || g.Name != "" {
+					if g.Name == "" {
+						<span class="fst-italic">(unnamed)</span>
+					} else {
+						<span class="text-break user-select-all" data-bs-toggle="tooltip" title="Name">{ g.Name }</span>
+					}
+				}
+			</div>
+			<small data-bs-toggle="tooltip" title="Byte range">{ fmt.Sprintf("(%d-%d, %+d)", g.Start, g.End, g.End - g.Start) }</small>
+		</div>
+		<div class="card-body">
+			<p class="card-text text-break" style="white-space: break-spaces;">
+				<span data-bs-toggle="tooltip" data-bs-title={ toJSON(strconv.QuoteToASCII(g.Text)) }>
+					{ g.Text }
+				</span>
+			</p>
+		</div>
+	</div>
+}
+
+templ pageSidebarConfig() {
+	<dl class="row row-cols-1 my-0">
+		<dt class="col">Document nodes</dt>
+		<dd class="col">
+			<div id="page_filter_show_kind_group">
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="page_filter_show_kind" id="page_filter_show_none" value=""/>
+					<label class="form-check-label" for="page_filter_show_none">None</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="page_filter_show_kind" id="page_filter_show_blocks" value="blocks"/>
+					<label class="form-check-label" for="page_filter_show_blocks">Blocks</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="page_filter_show_kind" id="page_filter_show_lines" value="lines"/>
+					<label class="form-check-label" for="page_filter_show_lines">Lines</label>
+				</div>
+			</div>
+			<div class="form-check form-switch">
+				<input class="form-check-input" type="checkbox" role="switch" id="page_filter_show_empty"/>
+				<label class="form-check-label" for="page_filter_show_empty">Include empty</label>
+			</div>
+		</dd>
+		<dt class="col">Sketch nodes</dt>
+		<dd class="col">
+			<div class="form-check form-switch">
+				<input class="form-check-input" type="checkbox" role="switch" id="sketch_show_valid"/>
+				<label class="form-check-label" for="sketch_show_valid">Show valid</label>
+			</div>
+		</dd>
+	</dl>
+}
+
+// vim: set ts=4 sw=0 sts=0 noet :

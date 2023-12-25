@@ -1,0 +1,44 @@
+package template
+
+import "fmt"
+
+templ OverviewContent(data OverviewContentData) {
+	<div class="p-3 row row-cols-auto g-3">
+		for _, i := range data.Pages {
+			<div class="col">
+				<div class="card h-100">
+					@PageImage(PageImageData{
+						DocFingerprint: data.DocFingerprint,
+						Page: i,
+						Width: 200,
+						ClassNames: []string{"card-img-top", "object-fit-cover"},
+						Alt: fmt.Sprintf("Preview of page %d", i.Number()),
+					})
+					<div class="card-body">
+						<a href={ templ.URL(fmt.Sprintf("/page/%d", i.Number())) } class="stretched-link">
+							{ fmt.Sprintf("Page %d", i.Number()) }
+						</a>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+}
+
+templ OverviewSidebar(data OverviewSidebarData) {
+	<div class="p-3">
+		<dl class="row row-cols-1">
+			<dt class="col">File path</dt>
+			<dd class="col user-select-all">{ data.Path }</dd>
+			<div class="w-100"></div>
+			<dt class="col">File size</dt>
+			<dd class="col">{ data.Size }</dd>
+			<div class="w-100"></div>
+			<dt class="col">Last modification</dt>
+			<dd class="col"><abbr title={ data.ModTimeFull }>{ data.ModTime }</abbr></dd>
+			<div class="w-100"></div>
+		</dl>
+	</div>
+}
+
+// vim: set ts=4 sw=0 sts=0 noet :

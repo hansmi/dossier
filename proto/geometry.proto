@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package dossier.geometry;
+option go_package = "github.com/hansmi/dossier/proto/geometrypb";
+
+message Length {
+  oneof value {
+    double pt = 1;
+    double mm = 2;
+    double cm = 3;
+    double in = 4;
+  }
+}
+
+message Point {
+  Length left = 1;
+  Length top = 2;
+}
+
+message Size {
+  Length width = 1;
+  Length height = 2;
+}
+
+message Rect {
+  Length top = 1;
+  Length right = 2;
+  Length bottom = 3;
+  Length left = 4;
+}
+
+// vim: set sw=2 sts=2 et :

@@ -1,0 +1,152 @@
+tags: "sketch tag"
+pages {
+  number: 1
+  size {
+    width {
+      pt: 420
+    }
+    height {
+      pt: 595
+    }
+  }
+  nodes {
+    name: "text"
+    valid: true
+    bounds {
+      top {
+        pt: 237
+      }
+      right {
+        pt: 345
+      }
+      bottom {
+        pt: 250
+      }
+      left {
+        pt: 74
+      }
+    }
+    search_areas {
+      top {
+        pt: 0
+      }
+      right {
+        pt: 567
+      }
+      bottom {
+        pt: 850
+      }
+      left {
+        pt: 0
+      }
+    }
+    text {
+      value: "Lorem ipsum dolor sit amet, consectetur adipisici elit"
+    }
+    text_match_groups {
+      end: 5
+      text: "Lorem"
+    }
+  }
+}
+pages {
+  number: 2
+  size {
+    width {
+      pt: 420
+    }
+    height {
+      pt: 595
+    }
+  }
+  nodes {
+    name: "text"
+    valid: true
+    bounds {
+      top {
+        pt: 57
+      }
+      right {
+        pt: 363
+      }
+      bottom {
+        pt: 70
+      }
+      left {
+        pt: 302
+      }
+    }
+    search_areas {
+      top {
+        pt: 0
+      }
+      right {
+        pt: 567
+      }
+      bottom {
+        pt: 850
+      }
+      left {
+        pt: 0
+      }
+    }
+    text {
+      value: "Second page"
+    }
+    text_match_groups {
+      end: 6
+      text: "Second"
+    }
+  }
+}
+pages {
+  number: 3
+  size {
+    width {
+      pt: 595
+    }
+    height {
+      pt: 420
+    }
+  }
+  nodes {
+    name: "text"
+    valid: true
+    bounds {
+      top {
+        pt: 210
+      }
+      right {
+        pt: 403
+      }
+      bottom {
+        pt: 255
+      }
+      left {
+        pt: 193
+      }
+    }
+    search_areas {
+      top {
+        pt: 0
+      }
+      right {
+        pt: 567
+      }
+      bottom {
+        pt: 850
+      }
+      left {
+        pt: 0
+      }
+    }
+    text {
+      value: "Hello World!"
+    }
+    text_match_groups {
+      start: 6
+      end: 11
+      text: "World"
+    }
+  }
+}

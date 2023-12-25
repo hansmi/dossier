@@ -1,0 +1,148 @@
+syntax = "proto3";
+
+package dossier.sketch;
+
+option go_package = "github.com/hansmi/dossier/proto/sketchpb";
+
+import "geometry.proto";
+
+// Node features are attachment points on a node. Relative positions on other
+// nodes refer to these.
+enum NodeFeature {
+  NODE_FEATURE_UNSPECIFIED = 0;
+
+  TOP_LEFT = 1;
+  TOP_RIGHT = 2;
+  BOTTOM_LEFT = 3;
+  BOTTOM_RIGHT = 4;
+}
+
+// A one-dimensional position relative to a feature on another node.
+message RelativePosition1D {
+  // Referenced node identifier and feature.
+  string node = 1;
+  NodeFeature feature = 2;
+
+  // Shift relative position by the given distance.
+  geometry.Length offset = 3;
+}
+
+// A two-dimensional position relative to a feature on another node.
+message RelativePosition2D {
+  // Referenced node identifier and feature.
+  string node = 1;
+  NodeFeature feature = 2;
+
+  // Shift relative position by the given distances.
+  geometry.Size offset = 3;
+}
+
+// FlexRect describes an abstract rectangle. The four edges (lines) can be
+// specified as absolute or relative positions or via vertices (corners) and/or
+// the rectangle size. Each edge may only be specified through one method.
+// Positions are relative to the top left corner of a page.
+//
+//  Top left             Top right
+//  vertex                  vertex
+//  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓---
+//  ┃          Top edge          ┃  ^
+//  ┃                            ┃  ┆
+//  ┃                            ┃  ┆
+//  ┃ Left                 Right ┃  ┆
+//  ┃ edge                  edge ┃  ┆ Height
+//  ┃                            ┃  ┆
+//  ┃                            ┃  ┆
+//  ┃        Bottom edge         ┃  v
+//  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛---
+//  | Bottom left   Bottom right |
+//  | vertex              vertex |
+//  |                            |
+//  |<┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄>|
+//              Width
+//
+// TODO: Allow specifying a different page corner for absolute positions, e.g.
+// bottom left.
+//
+message FlexRect {
+  message Vertex {
+    oneof method {
+      geometry.Point abs = 1;
+      RelativePosition2D rel = 2;
+    }
+  }
+
+  Vertex top_left = 1;
+  Vertex top_right = 2;
+  Vertex bottom_left = 3;
+  Vertex bottom_right = 4;
+
+  message Edge {
+    oneof method {
+      geometry.Length abs = 1;
+      RelativePosition1D rel = 2;
+    }
+  }
+
+  Edge top = 5;
+  Edge right = 6;
+  Edge bottom = 7;
+  Edge left = 8;
+
+  geometry.Length width = 9;
+  geometry.Length height = 10;
+}
+
+message Node {
+  // Unique node identifier.
+  string name = 1;
+
+  // Rectangles in which content should be matched. Multiple may be specified.
+  repeated FlexRect search_areas = 100;
+
+  message TextMatch {
+    // Regular expression to look for. If a source document has been processed
+    // via OCR the expression may have to be written in a more flexible form to
+    // accept lookalike-characters (e.g. German umlauts may be recognized as A,
+    // O and U without diacritic).
+    //
+    // Example: "(?i)^\\s*Destination\\s+address\\s*:"
+    //
+    // Syntax: https://pkg.go.dev/regexp/syntax
+    string regex = 1;
+
+    // By default the reported bounds of valid matches are those of the block
+    // or line containing the matched text. By setting "bounds_from_match" the
+    // exact bounds of the matched text are used instead.
+    bool bounds_from_match = 2;
+  }
+
+  oneof matcher {
+    // Match over blocks of text. A block contains one or more lines.
+    TextMatch block_text = 10;
+
+    // Match over single lines of text.
+    TextMatch line_text = 11;
+  }
+
+  // Tags are arbitrary non-empty, unique strings.
+  repeated string tags = 15;
+}
+
+// A sketch is an abstract description of where information on a page is to be
+// found. Sketches have no concept of multiple pages. If code needs to make
+// a distinction between pages the following approaches may be useful:
+//
+// 1) Define nodes for all pages in a single sketch. Look up nodes in the
+//    analysis results depending on the current page number and ignore all
+//    other nodes.
+//
+// 2) Define one sketch per page type and apply them as necessary.
+//
+message Sketch {
+  repeated Node nodes = 1;
+
+  // Tags are arbitrary non-empty, unique strings.
+  repeated string tags = 15;
+}
+
+// vim: set sw=2 sts=2 et :

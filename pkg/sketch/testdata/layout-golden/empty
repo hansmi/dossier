@@ -1,0 +1,33 @@
+pages {
+  number: 1
+  size {
+    width {
+      pt: 420
+    }
+    height {
+      pt: 595
+    }
+  }
+}
+pages {
+  number: 2
+  size {
+    width {
+      pt: 420
+    }
+    height {
+      pt: 595
+    }
+  }
+}
+pages {
+  number: 3
+  size {
+    width {
+      pt: 595
+    }
+    height {
+      pt: 420
+    }
+  }
+}

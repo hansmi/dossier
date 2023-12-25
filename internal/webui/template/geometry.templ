@@ -1,0 +1,18 @@
+package template
+
+import (
+	"fmt"
+
+	"github.com/hansmi/dossier/pkg/geometry"
+)
+
+templ geometryRect(rect geometry.Rect) {
+	<dossier-geometry-rect
+		left-pt={ fmt.Sprint(rect.Left.Pt()) }
+		top-pt={ fmt.Sprint(rect.Top.Pt()) }
+		right-pt={ fmt.Sprint(rect.Right.Pt()) }
+		bottom-pt={ fmt.Sprint(rect.Bottom.Pt()) }
+	></dossier-geometry-rect>
+}
+
+// vim: set ts=4 sw=0 sts=0 noet :

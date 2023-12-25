@@ -1,0 +1,149 @@
+pages {
+  number: 1
+  size {
+    width {
+      pt: 595
+    }
+    height {
+      pt: 842
+    }
+  }
+  nodes {
+    name: "sender"
+    valid: true
+    bounds {
+      top {
+        pt: 128
+      }
+      right {
+        pt: 378
+      }
+      bottom {
+        pt: 139
+      }
+      left {
+        pt: 71
+      }
+    }
+    search_areas {
+      top {
+        pt: 3
+      }
+      right {
+        pt: 31
+      }
+      bottom {
+        pt: 31
+      }
+      left {
+        pt: 3
+      }
+    }
+    search_areas {
+      top {
+        pt: 113
+      }
+      right {
+        pt: 425
+      }
+      bottom {
+        pt: 142
+      }
+      left {
+        pt: 57
+      }
+    }
+    text {
+      value: "Acme Lawn Care Inc.  ·  Street name 123  ·  12345 City name"
+    }
+    text_match_groups {
+      end: 9
+      text: "Acme Lawn"
+    }
+  }
+  nodes {
+    name: "total_label"
+    valid: true
+    bounds {
+      top {
+        pt: 415
+      }
+      right {
+        pt: 472
+      }
+      bottom {
+        pt: 429
+      }
+      left {
+        pt: 406
+      }
+    }
+    search_areas {
+      top {
+        pt: 227
+      }
+      right {
+        pt: 624
+      }
+      bottom {
+        pt: 794
+      }
+      left {
+        pt: 283
+      }
+    }
+    text {
+      value: "Gross total €202.30"
+    }
+    text_match_groups {
+      end: 11
+      text: "Gross total"
+    }
+  }
+  nodes {
+    name: "total_amount"
+    valid: true
+    bounds {
+      top {
+        pt: 415
+      }
+      right {
+        pt: 535
+      }
+      bottom {
+        pt: 429
+      }
+      left {
+        pt: 406
+      }
+    }
+    search_areas {
+      top {
+        pt: 400
+      }
+      right {
+        pt: 630
+      }
+      bottom {
+        pt: 457
+      }
+      left {
+        pt: 403
+      }
+    }
+    text {
+      value: "Gross total €202.30"
+    }
+    text_match_groups {
+      start: 12
+      end: 21
+      text: "€202.30"
+    }
+    text_match_groups {
+      name: "amount"
+      start: 15
+      end: 21
+      text: "202.30"
+    }
+  }
+}

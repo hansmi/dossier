@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e -u -o pipefail
+
+selfdir=$(dirname -- "$(realpath -- "$0")")
+
+: ${WEBDEV_IMAGE:=docker.io/library/node:alpine}
+
+docker run --rm --interactive --tty \
+  --user "$(id -u):$(id -g)" \
+  --volume "${selfdir}/../internal/webui:/work:rw" \
+  --tmpfs /tmp \
+  --workdir /work \
+  --env HOME=/tmp \
+  --env NODE_ENV=production \
+  "${WEBDEV_IMAGE:?}" "$@"
+
+# vim: set sw=2 sts=2 et :

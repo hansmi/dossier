@@ -1,0 +1,81 @@
+dossier-geometry-length,
+dossier-geometry-point,
+dossier-geometry-rect {
+  font-variant-numeric: tabular-nums;
+}
+
+#sidebar {
+  min-width: 10em;
+  max-width: 90vw;
+  width: 20em;
+}
+
+.dossier_viewer {
+  width: max-content;
+  height: auto;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.dossier_viewer_overlay .btn {
+  --bs-btn-padding-y: 0;
+  --bs-btn-padding-x: 0;
+  --bs-btn-border-color: var(--bs-btn-color);
+  --bs-btn-active-bg: color-mix(in srgb, var(--bs-btn-color) 60%, transparent);
+  --bs-btn-active-border-color: var(--bs-btn-color);
+  --bs-btn-hover-bg: color-mix(in srgb, var(--bs-btn-color) 30%, transparent);
+  --bs-btn-hover-border-color: var(--bs-btn-color);
+
+  min-width: .5rem;
+  min-height: .5rem;
+}
+
+.dossier_viewer .dossier_doc_block,
+.dossier_viewer .dossier_doc_line,
+.dossier_viewer .dossier_sketch_node {
+  visibility: hidden;
+}
+
+.dossier_viewer.dossier_doc_blocks_visible .dossier_doc_block,
+.dossier_viewer.dossier_doc_lines_visible .dossier_doc_line,
+.dossier_viewer.dossier_sketch_node_visible .dossier_sketch_node {
+  visibility: unset;
+}
+
+.dossier_viewer:not(.dossier_doc_empty_element_visible) .dossier_doc_empty_element {
+  visibility: hidden;
+}
+
+.dossier_viewer .dossier_sketch_node .btn {
+  --bs-btn-color: var(--bs-indigo);
+  --bs-btn-border-width: calc(2 * var(--bs-border-width));
+}
+
+.dossier_viewer .dossier_sketch_node.dossier_sketch_node_highlight .btn {
+  --bs-btn-bg: color-mix(in srgb, var(--bs-red) 30%, transparent);
+  --bs-btn-color: var(--bs-red);
+}
+
+.dossier_viewer_selection {
+  position: absolute;
+  display: none;
+  background: color-mix(in srgb, var(--bs-warning) 30%, transparent);
+  z-index: 10;
+  border: 2px dashed black;
+  pointer-events: none;
+}
+
+.dossier_viewer_tooltip:not(.show) {
+  display: none;
+}
+
+.dossier_viewer_tooltip .tooltip-inner {
+  --bs-tooltip-max-width: initial;
+}
+
+#dossier_page_node_dialog_template textarea {
+  min-height: 10em;
+  max-height: 20em;
+}
+
+/* vim: set sw=2 sts=2 et : */
