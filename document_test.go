@@ -274,3 +274,67 @@ func TestDocumentParsePages(t *testing.T) {
 		})
 	}
 }
+
+func TestDocumentParsePagesCache(t *testing.T) {
+	errTest := errors.New("test error")
+
+	ctx, cancel := context.WithCancel(context.Background())
+	t.Cleanup(cancel)
+
+	const knownPageCount = 3
+
+	parser := &parsertest.SimpleParser{
+		Pages: mustReadPages(t, "multipage.xml"),
+	}
+
+	d := NewDocument(os.DevNull, WithStaticDocumentParser(parser))
+
+	if err := d.Validate(ctx); err != nil {
+		t.Errorf("Validate() failed: %v", err)
+	}
+
+	// Populate cache
+	if pages, err := d.ParsePages(ctx, pagerange.All); err != nil {
+		t.Errorf("ParsePages() failed: %v", err)
+	} else if got, want := len(pages), knownPageCount; got != want {
+		t.Errorf("ParsePages() returned %d pages, want %d", got, want)
+	}
+
+	parser.ParseErr = errTest
+
+	// Pages are in cache
+	for pr, wantNumbers := range map[pagerange.Range][]int{
+		pagerange.MustSingle(1):              {1},
+		pagerange.MustSingle(knownPageCount): {3},
+		pagerange.MustNew(2, knownPageCount): {2, 3},
+		pagerange.MustNew(1, knownPageCount): {1, 2, 3},
+	} {
+		pages, err := d.ParsePages(ctx, pr)
+		if err != nil {
+			t.Errorf("ParsePages() failed: %v", err)
+		}
+
+		var numbers []int
+
+		for _, i := range pages {
+			numbers = append(numbers, i.Number())
+		}
+
+		if diff := cmp.Diff(wantNumbers, numbers, cmpopts.EquateEmpty()); diff != "" {
+			t.Errorf("Page number diff (-want +got):\n%s", diff)
+		}
+	}
+
+	for _, pr := range []pagerange.Range{
+		// Pages not cached previously
+		pagerange.MustSingle(knownPageCount + 1),
+		pagerange.MustSingle(100),
+
+		// Last page can't be cached as the page count is unknown
+		pagerange.MustSingle(pagerange.Last),
+	} {
+		if _, err := d.ParsePages(ctx, pr); !errors.Is(err, errTest) {
+			t.Errorf("ParsePages(%v) = %v, want %v", pr, err, errTest)
+		}
+	}
+}
