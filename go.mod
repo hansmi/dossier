@@ -11,7 +11,7 @@ require (
 )
 
 require (
-	github.com/a-h/templ v0.2.543
+	github.com/a-h/templ v0.2.590
 	github.com/dustin/go-humanize v1.0.1
 	github.com/gabriel-vasile/mimetype v1.4.3
 	github.com/go-chi/chi/v5 v5.0.12
@@ -26,11 +26,12 @@ require (
 
 require (
 	github.com/a-h/lexical v0.0.53 // indirect
-	github.com/a-h/parse v0.0.0-20230402144745-e6c8bc86e846 // indirect
+	github.com/a-h/parse v0.0.0-20240121214402-3caf7543159a // indirect
 	github.com/a-h/protocol v0.0.0-20230224160810-b4eec67c1c22 // indirect
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
 	github.com/cli/browser v1.2.0 // indirect
 	github.com/fatih/color v1.16.0 // indirect
+	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
