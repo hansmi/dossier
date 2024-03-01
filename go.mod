@@ -14,7 +14,7 @@ require (
 	github.com/a-h/templ v0.2.543
 	github.com/dustin/go-humanize v1.0.1
 	github.com/gabriel-vasile/mimetype v1.4.3
-	github.com/go-chi/chi/v5 v5.0.11
+	github.com/go-chi/chi/v5 v5.0.12
 	github.com/golang/protobuf v1.5.3
 	github.com/google/subcommands v1.2.0
 	github.com/hansmi/aurum v0.0.1
