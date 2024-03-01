@@ -9,10 +9,10 @@ templ OverviewContent(data OverviewContentData) {
 				<div class="card h-100">
 					@PageImage(PageImageData{
 						DocFingerprint: data.DocFingerprint,
-						Page: i,
-						Width: 200,
-						ClassNames: []string{"card-img-top", "object-fit-cover"},
-						Alt: fmt.Sprintf("Preview of page %d", i.Number()),
+						Page:           i,
+						Width:          200,
+						ClassNames:     []string{"card-img-top", "object-fit-cover"},
+						Alt:            fmt.Sprintf("Preview of page %d", i.Number()),
 					})
 					<div class="card-body">
 						<a href={ templ.URL(fmt.Sprintf("/page/%d", i.Number())) } class="stretched-link">
