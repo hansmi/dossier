@@ -3,6 +3,7 @@ package sketch
 import (
 	"context"
 	"fmt"
+	"slices"
 
 	"github.com/hansmi/dossier"
 	"github.com/hansmi/dossier/internal/flexrect"
@@ -10,7 +11,6 @@ import (
 	"github.com/hansmi/dossier/pkg/pagerange"
 	"github.com/hansmi/dossier/proto/sketchpb"
 	"go.uber.org/multierr"
-	"golang.org/x/exp/slices"
 	"google.golang.org/protobuf/encoding/prototext"
 )
 

@@ -3,8 +3,7 @@ package mutool
 import (
 	"context"
 	"fmt"
-
-	"golang.org/x/exp/slices"
+	"slices"
 )
 
 type recoverArgs struct {

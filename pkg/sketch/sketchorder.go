@@ -2,11 +2,11 @@ package sketch
 
 import (
 	"fmt"
+	"slices"
 	"strings"
 
 	"github.com/hansmi/dossier/internal/sketcherror"
 	"github.com/hansmi/dossier/pkg/geometry"
-	"golang.org/x/exp/slices"
 )
 
 func nodeNames(nodes []*sketchNode) []string {

@@ -1,12 +1,13 @@
 module github.com/hansmi/dossier
 
-go 1.19
+go 1.21
+
+toolchain go1.21.5
 
 require (
 	github.com/dhconnelly/rtreego v1.2.0
 	github.com/google/go-cmp v0.6.0
 	go.uber.org/multierr v1.11.0
-	golang.org/x/exp v0.0.0-20231219180239-dc181d75b848
 	google.golang.org/protobuf v1.32.0
 )
 
@@ -20,6 +21,7 @@ require (
 	github.com/hansmi/aurum v0.0.1
 	github.com/hashicorp/golang-lru/v2 v2.0.7
 	github.com/sourcegraph/conc v0.3.0
+	golang.org/x/exp v0.0.0-20240222234643-814bf88cf225
 	golang.org/x/net v0.22.0
 	golang.org/x/sys v0.18.0
 )
@@ -44,6 +46,6 @@ require (
 	go.lsp.dev/uri v0.3.0 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/zap v1.24.0 // indirect
-	golang.org/x/mod v0.14.0 // indirect
+	golang.org/x/mod v0.15.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 )

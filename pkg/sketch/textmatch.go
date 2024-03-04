@@ -3,10 +3,10 @@ package sketch
 import (
 	"fmt"
 	"regexp"
+	"slices"
 
 	"github.com/hansmi/dossier/internal/ref"
 	"github.com/hansmi/dossier/proto/reportpb"
-	"golang.org/x/exp/slices"
 )
 
 type TextMatchGroup struct {

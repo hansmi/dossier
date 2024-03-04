@@ -4,7 +4,9 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"maps"
 	"math"
+	"slices"
 	"strings"
 	"unicode"
 
@@ -13,8 +15,6 @@ import (
 	"github.com/hansmi/dossier/pkg/content"
 	"github.com/hansmi/dossier/pkg/geometry"
 	"github.com/hansmi/dossier/pkg/sketch"
-	"golang.org/x/exp/maps"
-	"golang.org/x/exp/slices"
 )
 
 type SketchNodeData struct {

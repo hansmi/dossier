@@ -7,10 +7,10 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"slices"
 	"strconv"
 
 	"go.uber.org/multierr"
-	"golang.org/x/exp/slices"
 )
 
 func makeCommand(ctx context.Context, args []string) *exec.Cmd {

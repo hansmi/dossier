@@ -3,11 +3,11 @@ package sketch
 import (
 	"errors"
 	"fmt"
+	"slices"
 	"sort"
 
 	"go.uber.org/multierr"
 	"golang.org/x/exp/maps"
-	"golang.org/x/exp/slices"
 )
 
 var errInvalidTags = errors.New("invalid tags")

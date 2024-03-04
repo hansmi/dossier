@@ -2,13 +2,13 @@ package flexrect
 
 import (
 	"fmt"
+	"slices"
 
 	"github.com/hansmi/dossier/internal/ref"
 	"github.com/hansmi/dossier/pkg/geometry"
 	"github.com/hansmi/dossier/proto/geometrypb"
 	"github.com/hansmi/dossier/proto/sketchpb"
 	"go.uber.org/multierr"
-	"golang.org/x/exp/slices"
 )
 
 type edgePositionFunc func(Callbacks) (geometry.Length, error)

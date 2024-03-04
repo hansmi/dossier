@@ -2,6 +2,7 @@ package flexrect
 
 import (
 	"math/rand"
+	"slices"
 	"strconv"
 	"testing"
 
@@ -9,7 +10,6 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/hansmi/dossier/internal/sketcherror"
 	"github.com/hansmi/dossier/proto/sketchpb"
-	"golang.org/x/exp/slices"
 )
 
 func TestNodeFeature(t *testing.T) {
