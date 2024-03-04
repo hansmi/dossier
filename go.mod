@@ -21,7 +21,7 @@ require (
 	github.com/hashicorp/golang-lru/v2 v2.0.7
 	github.com/sourcegraph/conc v0.3.0
 	golang.org/x/net v0.21.0
-	golang.org/x/sys v0.17.0
+	golang.org/x/sys v0.18.0
 )
 
 require (
