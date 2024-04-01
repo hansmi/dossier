@@ -12,7 +12,7 @@ require (
 )
 
 require (
-	github.com/a-h/templ v0.2.598
+	github.com/a-h/templ v0.2.648
 	github.com/dustin/go-humanize v1.0.1
 	github.com/gabriel-vasile/mimetype v1.4.3
 	github.com/go-chi/chi/v5 v5.0.12
