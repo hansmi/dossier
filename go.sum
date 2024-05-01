@@ -4,8 +4,8 @@ github.com/a-h/parse v0.0.0-20240121214402-3caf7543159a h1:vlmAfVwFK9sRpDlJyuHY8
 github.com/a-h/parse v0.0.0-20240121214402-3caf7543159a/go.mod h1:3mnrkvGpurZ4ZrTDbYU84xhwXW2TjTKShSwjRi2ihfQ=
 github.com/a-h/protocol v0.0.0-20230224160810-b4eec67c1c22 h1:ehNdbGOAR8KTrLY/S90/9RJ4p/cgeNdt1sRt0DSiRWs=
 github.com/a-h/protocol v0.0.0-20230224160810-b4eec67c1c22/go.mod h1:Gm0KywveHnkiIhqFSMZglXwWZRQICg3KDWLYdglv/d8=
-github.com/a-h/templ v0.2.648 h1:A1ggHGIE7AONOHrFaDTM8SrqgqHL6fWgWCijQ21Zy9I=
-github.com/a-h/templ v0.2.648/go.mod h1:SA7mtYwVEajbIXFRh3vKdYm/4FYyLQAtPH1+KxzGPA8=
+github.com/a-h/templ v0.2.663 h1:aa0WMm27InkYHGjimcM7us6hJ6BLhg98ZbfaiDPyjHE=
+github.com/a-h/templ v0.2.663/go.mod h1:SA7mtYwVEajbIXFRh3vKdYm/4FYyLQAtPH1+KxzGPA8=
 github.com/benbjohnson/clock v1.1.0 h1:Q92kusRqC1XV2MjkWETPvjJVqKetz1OzxZB7mHJLju8=
 github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
 github.com/cenkalti/backoff/v4 v4.2.1 h1:y4OZtCnogmCPw98Zjyt5a6+QwPLGkiQsYW5oUqylYbM=
