@@ -30,9 +30,9 @@ dockers:
       - internal/testfiles/acme-invoice-11321-19.pdf
       - pkg/sketch/testdata/acme-invoice.textproto
     image_templates:
-      - ghcr.io/hansmi/dossier:{{.Tag}}-cli
-      - ghcr.io/hansmi/dossier:v{{.Major}}-cli
-      - ghcr.io/hansmi/dossier:latest-cli
+      - ghcr.io/hansmi/dossier-cli:{{.Tag}}
+      - ghcr.io/hansmi/dossier-cli:v{{.Major}}
+      - ghcr.io/hansmi/dossier-cli:latest
     build_flag_templates:
       - --pull
       - --label=org.opencontainers.image.created={{.Date}}
