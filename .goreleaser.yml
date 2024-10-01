@@ -1,0 +1,51 @@
+# Configuration for GoReleaser
+# https://goreleaser.com/
+#
+# Local test: contrib/build-all
+#
+
+version: 2
+
+project_name: dossier
+
+builds:
+  - id: dossiercli
+    main: ./cmd/dossiercli/
+    binary: dossiercli
+    env:
+      - CGO_ENABLED=0
+    targets:
+      - linux_amd64_v1
+    flags:
+      - -trimpath
+
+dockers:
+  - ids:
+      - dossiercli
+    use: buildx
+    dockerfile: contrib/Dockerfile.goreleaser
+    extra_files:
+      - LICENSE
+      - README.md
+      - internal/testfiles/acme-invoice-11321-19.pdf
+      - pkg/sketch/testdata/acme-invoice.textproto
+    image_templates:
+      - ghcr.io/hansmi/dossier:{{.Tag}}-cli
+      - ghcr.io/hansmi/dossier:v{{.Major}}-cli
+      - ghcr.io/hansmi/dossier:latest-cli
+    build_flag_templates:
+      - --pull
+      - --label=org.opencontainers.image.created={{.Date}}
+      - --label=org.opencontainers.image.name={{.ProjectName}}
+      - --label=org.opencontainers.image.revision={{.FullCommit}}
+      - --label=org.opencontainers.image.version={{.Version}}
+      - --label=org.opencontainers.image.source={{.GitURL}}
+
+release:
+  draft: true
+  prerelease: auto
+
+snapshot:
+  version_template: '{{ incpatch .Version }}-snapshot{{ replace (replace .Date ":" "") "-" "" }}+g{{ .ShortCommit }}'
+
+# vim: set sw=2 sts=2 et :

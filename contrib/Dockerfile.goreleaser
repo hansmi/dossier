@@ -1,0 +1,22 @@
+FROM docker.io/library/alpine:latest
+
+RUN apk add --no-cache ca-certificates tzdata mupdf-tools
+
+LABEL org.opencontainers.image.licenses=BSD-3-Clause
+LABEL org.opencontainers.image.description="Extract information from PDF documents"
+
+WORKDIR /
+
+COPY LICENSE README.md /
+COPY dossiercli /
+
+# Trivial test
+RUN --mount=type=bind,source=./,target=/src \
+  /dossiercli analyze-sketch \
+    /src/internal/testfiles/acme-invoice-11321-19.pdf \
+    /src/pkg/sketch/testdata/acme-invoice.textproto | \
+  grep -q -w -e textMatchGroups
+
+ENTRYPOINT ["/dossiercli"]
+
+# vim: set sw=2 sts=2 et ft=dockerfile :
