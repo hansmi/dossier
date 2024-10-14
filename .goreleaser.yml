@@ -41,6 +41,13 @@ dockers:
       - --label=org.opencontainers.image.version={{.Version}}
       - --label=org.opencontainers.image.source={{.GitURL}}
 
+changelog:
+  groups:
+    - title: Dependencies
+      regexp: '(?i)^[a-f0-9]{8,64}\s+Bump\s+[-.\w]+/\w.*\sto\s'
+      order: 1
+    - order: 0
+
 release:
   draft: true
   prerelease: auto
