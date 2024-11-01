@@ -8,7 +8,7 @@ require (
 	github.com/dhconnelly/rtreego v1.2.0
 	github.com/google/go-cmp v0.6.0
 	go.uber.org/multierr v1.11.0
-	google.golang.org/protobuf v1.34.2
+	google.golang.org/protobuf v1.35.1
 )
 
 require (
@@ -18,7 +18,7 @@ require (
 	github.com/go-chi/chi/v5 v5.1.0
 	github.com/golang/protobuf v1.5.4
 	github.com/google/subcommands v1.2.0
-	github.com/hansmi/aurum v0.0.1
+	github.com/hansmi/aurum v0.0.2
 	github.com/hashicorp/golang-lru/v2 v2.0.7
 	github.com/sourcegraph/conc v0.3.0
 	golang.org/x/exp v0.0.0-20240222234643-814bf88cf225
