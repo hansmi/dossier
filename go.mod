@@ -1,8 +1,8 @@
 module github.com/hansmi/dossier
 
-go 1.21
+go 1.23
 
-toolchain go1.21.5
+toolchain go1.23.5
 
 require (
 	github.com/dhconnelly/rtreego v1.2.0
@@ -12,7 +12,7 @@ require (
 )
 
 require (
-	github.com/a-h/templ v0.2.793
+	github.com/a-h/templ v0.3.833
 	github.com/dustin/go-humanize v1.0.1
 	github.com/gabriel-vasile/mimetype v1.4.8
 	github.com/go-chi/chi/v5 v5.2.0
@@ -27,11 +27,10 @@ require (
 )
 
 require (
-	github.com/PuerkitoBio/goquery v1.8.1 // indirect
-	github.com/a-h/parse v0.0.0-20240121214402-3caf7543159a // indirect
-	github.com/a-h/protocol v0.0.0-20240704131721-1e461c188041 // indirect
+	github.com/PuerkitoBio/goquery v1.10.1 // indirect
+	github.com/a-h/parse v0.0.0-20250122154542-74294addb73e // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
-	github.com/andybalholm/cascadia v1.3.1 // indirect
+	github.com/andybalholm/cascadia v1.3.3 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/cli/browser v1.3.0 // indirect
 	github.com/fatih/color v1.16.0 // indirect
@@ -41,12 +40,6 @@ require (
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/natefinch/atomic v1.0.1 // indirect
 	github.com/protocolbuffers/txtpbfmt v0.0.0-20231025115547-084445ff1adf // indirect
-	github.com/segmentio/asm v1.2.0 // indirect
-	github.com/segmentio/encoding v0.4.0 // indirect
-	go.lsp.dev/jsonrpc2 v0.10.0 // indirect
-	go.lsp.dev/pkg v0.0.0-20210717090340-384b27a52fb2 // indirect
-	go.lsp.dev/uri v0.3.0 // indirect
-	go.uber.org/zap v1.27.0 // indirect
 	golang.org/x/mod v0.20.0 // indirect
 	golang.org/x/sync v0.10.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
