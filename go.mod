@@ -8,7 +8,7 @@ require (
 	github.com/dhconnelly/rtreego v1.2.0
 	github.com/google/go-cmp v0.6.0
 	go.uber.org/multierr v1.11.0
-	google.golang.org/protobuf v1.36.1
+	google.golang.org/protobuf v1.36.4
 )
 
 require (
