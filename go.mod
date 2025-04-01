@@ -2,13 +2,13 @@ module github.com/hansmi/dossier
 
 go 1.23.0
 
-toolchain go1.23.5
+toolchain go1.24.1
 
 require (
 	github.com/dhconnelly/rtreego v1.2.0
 	github.com/google/go-cmp v0.7.0
 	go.uber.org/multierr v1.11.0
-	google.golang.org/protobuf v1.36.5
+	google.golang.org/protobuf v1.36.6
 )
 
 require (
