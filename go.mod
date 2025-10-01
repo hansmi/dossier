@@ -1,6 +1,6 @@
 module github.com/hansmi/dossier
 
-go 1.23.0
+go 1.24.0
 
 toolchain go1.24.1
 
@@ -22,7 +22,7 @@ require (
 	github.com/sourcegraph/conc v0.3.0
 	golang.org/x/exp v0.0.0-20240222234643-814bf88cf225
 	golang.org/x/net v0.43.0
-	golang.org/x/sys v0.35.0
+	golang.org/x/sys v0.36.0
 )
 
 require (
