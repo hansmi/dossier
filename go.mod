@@ -22,7 +22,7 @@ require (
 	github.com/sourcegraph/conc v0.3.0
 	golang.org/x/exp v0.0.0-20240222234643-814bf88cf225
 	golang.org/x/net v0.46.0
-	golang.org/x/sys v0.37.0
+	golang.org/x/sys v0.38.0
 )
 
 require (
