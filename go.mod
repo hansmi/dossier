@@ -17,7 +17,7 @@ require (
 	github.com/gabriel-vasile/mimetype v1.4.11
 	github.com/go-chi/chi/v5 v5.2.3
 	github.com/google/subcommands v1.2.0
-	github.com/hansmi/aurum v0.0.2
+	github.com/hansmi/aurum v0.0.3
 	github.com/hashicorp/golang-lru/v2 v2.0.7
 	github.com/sourcegraph/conc v0.3.0
 	golang.org/x/exp v0.0.0-20240222234643-814bf88cf225
