@@ -51,8 +51,7 @@ func (s *server) makeRouter() http.Handler {
 	r.Get(`/page/{num:\d+}`, httperr.WrapHandler(httperr.HandlerFunc(s.handlePage)))
 	r.Get(`/page/{num:\d+}/image`, httperr.WrapHandler(httperr.HandlerFunc(s.handlePageImage)))
 
-	// TODO: Switch to https://pkg.go.dev/net/http@master#FileServerFS with Go 1.22
-	r.Handle("/static/*", http.FileServer(http.FS(staticFiles)))
+	r.Handle("/static/*", http.FileServerFS(staticFiles))
 
 	return r
 }
