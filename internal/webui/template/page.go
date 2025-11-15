@@ -204,7 +204,7 @@ func pageViewerOverlay(data pageViewerOverlayData) templ.Component {
 		buf.WriteString(`" class="`)
 		buf.WriteString(templ.EscapeString(templ.CSSClasses(classes).String()))
 		buf.WriteString(`" style="`)
-		buf.WriteString(data.style())
+		buf.WriteString(templ.EscapeString(data.style()))
 		buf.WriteString(`"`)
 
 		// Dynamic attributes are not yet supported in templ v0.2.408.
