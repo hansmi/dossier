@@ -14,4 +14,9 @@ jobs:
     with:
       runs-on: ubuntu-latest
 
+      # TODO: Set DOSSIER_INTEGRATION_TEST_REQUIRED to a non-empty value.
+      # Requires an extension in the reusable workflow
+      # (https://stackoverflow.com/a/77116436).
+      install-packages: mupdf-tools,libxml2-utils
+
 # vim: set sw=2 sts=2 et :
