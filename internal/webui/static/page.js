@@ -231,7 +231,6 @@ class MeasurementTool {
 
         onEnterHidden: this._onEnterHidden.bind(this),
         onBeforeDown: this._onBeforeDown.bind(this),
-        onEnterMovetest: this._onEnterMovetest.bind(this),
         onLeaveMovetest: this._onLeaveMovetest.bind(this),
         onEnterMeasure: this._onEnterMeasure.bind(this),
         onAfterMove: this._onAfterMove.bind(this),
@@ -285,7 +284,12 @@ class MeasurementTool {
       posAbs.y * 100.0 / elemBounds.height,
     );
 
-    return { elemBounds, posAbs, posPct };
+    return {
+      target: ev.target,
+      elemBounds,
+      posAbs,
+      posPct,
+    };
   }
 
   _createInfoPopper() {
@@ -324,8 +328,6 @@ class MeasurementTool {
   }
 
   _onEnterHidden(lifecycle) {
-    this._origin = null;
-
     if (this._infoPopper !== null) {
       this._infoPopper.destroy();
       this._infoPopper = null;
@@ -334,7 +336,7 @@ class MeasurementTool {
     this._setVisibility(false);
   }
 
-  _onBeforeDown() {
+  _onBeforeDown(lifecycle, data) {
     if (this._listenerAbortController === null) {
       this._listenerAbortController = new AbortController();
     }
@@ -352,9 +354,7 @@ class MeasurementTool {
     this._elem.addEventListener('pointerup', this._onPointerUp.bind(this), {
       signal: this._listenerAbortController.signal,
     });
-  }
 
-  _onEnterMovetest(lifecycle, data) {
     this._origin = data;
   }
 
@@ -409,21 +409,34 @@ class MeasurementTool {
       this._listenerAbortController.abort();
       this._listenerAbortController = null;
     }
+
+    this._origin = null;
   }
 
   _onAfterUp(lifecycle) {
-    this._abortListeners();
+    switch (lifecycle.from) {
+    case 'movetest':
+      const target = this._origin?.target;
 
-    if (lifecycle.from === 'measure') {
-      // Swallow a click event
+      if (target) {
+        window.setTimeout(target.click.bind(target), 0);
+      }
+
+      break;
+
+    default:
+      // Swallow a possible click event.
       window.addEventListener('click', (ev) => {
         ev.stopImmediatePropagation();
         ev.preventDefault();
       }, { capture: true, once: true });
+      break;
     }
+
+    this._abortListeners();
   }
 
-  _onAfterCancel(lifecycle) {
+  _onAfterCancel() {
     this._abortListeners();
   }
 
