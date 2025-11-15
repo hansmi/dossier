@@ -128,6 +128,22 @@ func (d PageData) overlays() []pageViewerOverlayData {
 		result = append(result, o)
 	}
 
+	for _, node := range d.SketchNodes {
+		for _, area := range node.SearchAreas() {
+			o := newPageViewerOverlayData(nextID())
+			o.PageSize = d.size()
+			o.Bounds = area
+			o.Classes = append(o.Classes, "dossier_sketch_node_search_area")
+			o.Order = 50
+
+			if node.ID != "" {
+				o.DataAttr["info-id"] = node.ID
+			}
+
+			result = append(result, o)
+		}
+	}
+
 	var compareRect = geometry.MakeRectRowColumnCompare(geometry.TopToBottom, geometry.LeftToRight)
 
 	// Give overlays a predictable order.

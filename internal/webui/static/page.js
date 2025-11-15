@@ -31,6 +31,7 @@ const kEmptyVisibleClass = 'dossier_doc_empty_element_visible';
 const kSketchNodeVisibleClass = 'dossier_sketch_node_visible';
 const kSketchNodeInfoClass = 'dossier_sketch_node_info';
 const kSketchNodeHighlightClass = 'dossier_sketch_node_highlight';
+const kSketchNodeSearchAreaHighlightClass = 'dossier_sketch_node_search_area_highlight';
 
 function applyShowLayout() {
   const toggle = (token, force) => {
@@ -542,14 +543,25 @@ function initViewer() {
 function initSidebar() {
   const onSketchNodeInfoMouseEnter = (ev) => {
     const id = ev.target.id;
-
-    const overlay = divViewer.querySelector(`.dossier_sketch_node[data-info-id="${id}"]`)
+    const modified = new Array();
+    const overlay = divViewer.querySelector(`.dossier_sketch_node[data-info-id="${id}"]`);
 
     if (overlay) {
       overlay.classList.add(kSketchNodeHighlightClass);
+      modified.push(overlay.classList);
+    }
 
+    divViewer.querySelectorAll(`.dossier_sketch_node_search_area[data-info-id="${id}"]`).forEach((el) => {
+      el.classList.add(kSketchNodeSearchAreaHighlightClass);
+      modified.push(el.classList);
+    });
+
+    if (modified.length > 0) {
       ev.target.addEventListener('mouseleave', (ev) => {
-        overlay.classList.remove(kSketchNodeHighlightClass);
+        modified.forEach((classList) => classList.remove(
+          kSketchNodeHighlightClass,
+          kSketchNodeSearchAreaHighlightClass,
+        ));
       }, { passive: true, once: true });
     }
   };

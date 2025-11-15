@@ -32,7 +32,8 @@ dossier-geometry-rect {
 
 .dossier_viewer .dossier_doc_block,
 .dossier_viewer .dossier_doc_line,
-.dossier_viewer .dossier_sketch_node {
+.dossier_viewer .dossier_sketch_node,
+.dossier_viewer .dossier_sketch_node_search_area {
   visibility: hidden;
 }
 
@@ -54,6 +55,15 @@ dossier-geometry-rect {
 .dossier_viewer .dossier_sketch_node.dossier_sketch_node_highlight .btn {
   --bs-btn-bg: color-mix(in srgb, var(--bs-red) 30%, transparent);
   --bs-btn-color: var(--bs-red);
+}
+
+.dossier_viewer .dossier_sketch_node_search_area_highlight {
+  visibility: unset;
+}
+
+.dossier_viewer .dossier_sketch_node_search_area_highlight .btn {
+  --bs-btn-bg: color-mix(in srgb, var(--bs-yellow) 30%, transparent);
+  --bs-btn-color: var(--bs-yellow);
 }
 
 .dossier_viewer_selection {
