@@ -404,7 +404,7 @@ class MeasurementTool {
     }
   }
 
-  _abortListeners() {
+  _reset() {
     if (this._listenerAbortController !== null) {
       this._listenerAbortController.abort();
       this._listenerAbortController = null;
@@ -433,11 +433,11 @@ class MeasurementTool {
       break;
     }
 
-    this._abortListeners();
+    this._reset();
   }
 
   _onAfterCancel() {
-    this._abortListeners();
+    this._reset();
   }
 
   _onPointerDown(ev) {
