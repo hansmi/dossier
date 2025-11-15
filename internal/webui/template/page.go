@@ -1,6 +1,7 @@
 package template
 
 import (
+	"cmp"
 	"context"
 	"fmt"
 	"io"
@@ -119,6 +120,7 @@ func (d PageData) overlays() []pageViewerOverlayData {
 		o.PageSize = d.size()
 		o.Bounds = node.Bounds()
 		o.Classes = append(o.Classes, "dossier_sketch_node")
+		o.Order = 100
 
 		if node.ID != "" {
 			o.DataAttr["info-id"] = node.ID
@@ -131,7 +133,10 @@ func (d PageData) overlays() []pageViewerOverlayData {
 
 	// Give overlays a predictable order.
 	slices.SortStableFunc(result, func(a, b pageViewerOverlayData) int {
-		return compareRect(a.Bounds, b.Bounds)
+		return cmp.Or(
+			cmp.Compare(a.Order, b.Order),
+			compareRect(a.Bounds, b.Bounds),
+		)
 	})
 
 	return result
@@ -144,6 +149,7 @@ type pageViewerOverlayData struct {
 	Bounds      geometry.Rect
 	Classes     []string
 	DataAttr    map[string]string
+	Order       int
 	ModalTarget string
 }
 
