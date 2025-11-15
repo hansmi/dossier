@@ -5,7 +5,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"maps"
 	"math"
 	"slices"
 	"strings"
@@ -174,14 +173,6 @@ func pageViewerOverlay(data pageViewerOverlayData) templ.Component {
 		buf := templ.GetBuffer()
 		defer templ.ReleaseBuffer(buf)
 
-		dataAttr := maps.Clone(data.DataAttr)
-
-		if data.Title != "" {
-			dataAttr["bs-toggle"] = "tooltip"
-			dataAttr["bs-container"] = toJSON("#" + data.ID)
-			dataAttr["bs-title"] = toJSON(data.Title)
-		}
-
 		classes := []any{
 			"dossier_viewer_overlay",
 			"position-absolute",
@@ -198,26 +189,26 @@ func pageViewerOverlay(data pageViewerOverlayData) templ.Component {
 			return err
 		}
 
-		// Dynamic styles are forbidden in templ.
-		buf.WriteString(`<div id="`)
-		buf.WriteString(templ.EscapeString(data.ID))
-		buf.WriteString(`" class="`)
-		buf.WriteString(templ.EscapeString(templ.CSSClasses(classes).String()))
-		buf.WriteString(`" style="`)
-		buf.WriteString(templ.EscapeString(data.style()))
-		buf.WriteString(`"`)
-
-		// Dynamic attributes are not yet supported in templ v0.2.408.
-		//
-		// https://github.com/a-h/templ/pull/237
-		for key, value := range dataAttr {
-			buf.WriteString(` data-`)
-			buf.WriteString(key)
-			buf.WriteString(`="`)
-			buf.WriteString(templ.EscapeString(value))
-			buf.WriteString(`"`)
+		attr := templ.Attributes{
+			"id":    data.ID,
+			"class": templ.CSSClasses(classes).String(),
+			"style": data.style(),
 		}
 
+		for k, v := range data.DataAttr {
+			attr["data-"+k] = v
+		}
+
+		if data.Title != "" {
+			attr["data-bs-toggle"] = "tooltip"
+			attr["data-bs-container"] = toJSON("#" + data.ID)
+			attr["data-bs-title"] = toJSON(data.Title)
+		}
+
+		buf.WriteString(`<div`)
+		if err := templ.RenderAttributes(ctx, buf, attr); err != nil {
+			return err
+		}
 		buf.WriteString(`>`)
 
 		buf.WriteString(`<button type="button" class="flex-fill btn btn-sm btn-outline-primary overflow-hidden"`)
