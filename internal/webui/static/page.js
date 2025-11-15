@@ -226,8 +226,8 @@ class MeasurementTool {
         { name: 'cancel', from: ['down', 'movetest', 'measure'], to: 'hidden' },
       ],
       methods: {
-        // onTransition: function (lifecycle) { console.log("transition", lifecycle); },
-        // onEnterState: function (lifecycle) { console.log("enter state", lifecycle); },
+        // onTransition: (lifecycle) => console.log("transition", lifecycle),
+        // onEnterState: (lifecycle) => console.log("enter state", lifecycle),
 
         onEnterHidden: this._onEnterHidden.bind(this),
         onBeforeDown: this._onBeforeDown.bind(this),
