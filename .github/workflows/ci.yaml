@@ -13,5 +13,6 @@ jobs:
     uses: hansmi/ghactions-go-test-workflow/.github/workflows/test.yaml@v0.2
     with:
       runs-on: ubuntu-latest
+      install-packages: mupdf-tools,libxml2-utils
 
 # vim: set sw=2 sts=2 et :
