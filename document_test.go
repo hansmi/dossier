@@ -225,6 +225,27 @@ func TestDocumentParsePages(t *testing.T) {
 			}(),
 		},
 		{
+			name: "unicode",
+			p: &parsertest.SimpleParser{
+				Pages: mustReadPages(t, "unicode1.xml"),
+			},
+			wantPages: func() []pageLookup {
+				want := []pageLookupResult{
+					{
+						num: 1,
+						size: geometry.Size{
+							Width:  210 * geometry.Mm,
+							Height: 297 * geometry.Mm,
+						},
+					},
+				}
+
+				return []pageLookup{
+					{r: pagerange.All, want: want},
+				}
+			}(),
+		},
+		{
 			name: "validation fails",
 			p: &parsertest.SimpleParser{
 				ValidateErr: errTest,
