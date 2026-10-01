@@ -1,6 +1,6 @@
 module github.com/hansmi/dossier
 
-go 1.25.0
+go 1.26.0
 
 require (
 	github.com/dhconnelly/rtreego v1.2.0
@@ -20,7 +20,7 @@ require (
 	github.com/sourcegraph/conc v0.3.0
 	golang.org/x/exp v0.0.0-20251113190631-e25ba8c21ef6
 	golang.org/x/net v0.58.0
-	golang.org/x/sys v0.47.0
+	golang.org/x/sys v0.48.0
 )
 
 require (
