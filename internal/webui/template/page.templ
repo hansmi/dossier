@@ -269,4 +269,46 @@ templ pageSidebarConfig() {
 	</dl>
 }
 
+templ pageViewerOverlay(data pageViewerOverlayData) {
+	{{
+		classes := []any{
+			"dossier_viewer_overlay",
+			"position-absolute",
+			"shadow-sm",
+			"d-flex",
+			"align-items-stretch",
+		}
+
+		for _, i := range data.Classes {
+			classes = append(classes, i)
+		}
+
+		attr := templ.Attributes{
+			"id":    data.ID,
+			"class": templ.CSSClasses(classes).String(),
+			"style": data.style(),
+		}
+
+		for k, v := range data.DataAttr {
+			attr["data-"+k] = v
+		}
+
+		if data.Title != "" {
+			attr["data-bs-toggle"] = "tooltip"
+			attr["data-bs-container"] = toJSON("#" + data.ID)
+			attr["data-bs-title"] = toJSON(data.Title)
+		}
+	}}
+	<div { attr... }>
+		<button
+			type="button"
+			class="flex-fill btn btn-sm btn-outline-primary overflow-hidden"
+			if data.ModalTarget != "" {
+				data-bs-toggle="modal"
+				data-bs-target={ data.ModalTarget }
+			}
+		></button>
+	</div>
+}
+
 // vim: set ts=4 sw=0 sts=0 noet :

@@ -2,15 +2,12 @@ package template
 
 import (
 	"cmp"
-	"context"
 	"fmt"
-	"io"
 	"math"
 	"slices"
 	"strings"
 	"unicode"
 
-	"github.com/a-h/templ"
 	"github.com/hansmi/dossier"
 	"github.com/hansmi/dossier/pkg/content"
 	"github.com/hansmi/dossier/pkg/geometry"
@@ -182,63 +179,4 @@ func (d pageViewerOverlayData) style() string {
 	height := 100 * float32(d.Bounds.Height()/d.PageSize.Height)
 
 	return fmt.Sprintf(`top: %.1f%%; left: %.1f%%; width: %.1f%%; height: %.1f%%;`, top, left, width, height)
-}
-
-func pageViewerOverlay(data pageViewerOverlayData) templ.Component {
-	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) error {
-		buf := templ.GetBuffer()
-		defer templ.ReleaseBuffer(buf)
-
-		classes := []any{
-			"dossier_viewer_overlay",
-			"position-absolute",
-			"shadow-sm",
-			"d-flex",
-			"align-items-stretch",
-		}
-
-		for _, i := range data.Classes {
-			classes = append(classes, i)
-		}
-
-		if err := templ.RenderCSSItems(ctx, buf, classes...); err != nil {
-			return err
-		}
-
-		attr := templ.Attributes{
-			"id":    data.ID,
-			"class": templ.CSSClasses(classes).String(),
-			"style": data.style(),
-		}
-
-		for k, v := range data.DataAttr {
-			attr["data-"+k] = v
-		}
-
-		if data.Title != "" {
-			attr["data-bs-toggle"] = "tooltip"
-			attr["data-bs-container"] = toJSON("#" + data.ID)
-			attr["data-bs-title"] = toJSON(data.Title)
-		}
-
-		buf.WriteString(`<div`)
-		if err := templ.RenderAttributes(ctx, buf, attr); err != nil {
-			return err
-		}
-		buf.WriteString(`>`)
-
-		buf.WriteString(`<button type="button" class="flex-fill btn btn-sm btn-outline-primary overflow-hidden"`)
-		if data.ModalTarget != "" {
-			buf.WriteString(` data-bs-toggle="modal" data-bs-target="`)
-			buf.WriteString(templ.EscapeString(data.ModalTarget))
-			buf.WriteString(`"`)
-		}
-		buf.WriteString(`></button>`)
-
-		buf.WriteString(`</div>`)
-
-		_, err := buf.WriteTo(w)
-
-		return err
-	})
 }
