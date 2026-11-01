@@ -12,7 +12,7 @@ require (
 require (
 	github.com/a-h/templ v0.3.1020
 	github.com/dustin/go-humanize v1.1.0
-	github.com/gabriel-vasile/mimetype v1.4.15
+	github.com/gabriel-vasile/mimetype v1.4.16
 	github.com/go-chi/chi/v5 v5.4.0
 	github.com/google/subcommands v1.2.0
 	github.com/hansmi/aurum v0.0.3
